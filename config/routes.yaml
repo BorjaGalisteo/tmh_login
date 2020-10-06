@@ -4,6 +4,6 @@ web:
     controller: App\Controller\Web\HomeController::handle
 
 api:
-    path: /code
+    path: /code/
     methods: POST
     controller: App\Controller\Api\CodeController::create
