@@ -71,7 +71,7 @@ class CodeController extends AbstractController
             }
             return new JsonResponse(['id' => $codeId->value()], Http_codes::HTTP_CREATED);
         }
-        return new JsonResponse('Invalid telephone format', Http_codes::HTTP_BAD_REQUEST);
+        return new JsonResponse(['message' => 'Invalid telephone format'], Http_codes::HTTP_BAD_REQUEST);
     }
 
     public function getCode(int $code_id)
@@ -84,9 +84,9 @@ class CodeController extends AbstractController
                 Http_codes::HTTP_OK
             );
         } catch (CodeNotFoundException $e) {
-            return new JsonResponse('Not found', Http_codes::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Not found'], Http_codes::HTTP_NOT_FOUND);
         } catch (\Throwable $e) {
-            return new JsonResponse('Internal error' . $e->getTraceAsString(), Http_codes::HTTP_ERROR);
+            return new JsonResponse(['message' => 'Internal error'] . $e->getTraceAsString(), Http_codes::HTTP_ERROR);
         }
     }
 
@@ -100,11 +100,11 @@ class CodeController extends AbstractController
                 $request->get('verification_code')
             ));
         } catch (CodeNotFoundException $e) {
-            return new JsonResponse('This code is not right', Http_codes::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'This code is not right'], Http_codes::HTTP_NOT_FOUND);
         } catch (\Throwable $e) {
-            return new JsonResponse('Internal error' . $e->getMessage(), Http_codes::HTTP_ERROR);
+            return new JsonResponse(['message' => 'Internal error'] . $e->getMessage(), Http_codes::HTTP_ERROR);
         }
 
-        return new JsonResponse(['right_code' => $checked->right()], Http_codes::HTTP_NOT_FOUND);
+        return new JsonResponse(['right_code' => $checked->right()], Http_codes::HTTP_OK);
     }
 }

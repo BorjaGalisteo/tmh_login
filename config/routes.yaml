@@ -4,7 +4,7 @@ home:
     controller: App\Controller\Web\HomeController::handle
 
 create_code:
-    path: /api/code/
+    path: /api/code
     methods: POST
     controller: App\Controller\Api\CodeController::create
 get_code:
