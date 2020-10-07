@@ -76,8 +76,7 @@ class CodeController extends AbstractController
             $telephone_number = $this->sanitizePhoneNumber->sanitize($telephone_number);
             $codeId           = $this->createVerificationCode->handle(new CreateVerificationCodeCommand((int)$telephone_number));
         } catch (\Throwable $e) {
-            $message = sprintf("Error, %s", $e->getMessage());
-            return new JsonResponse($message, Http_codes::HTTP_CREATED, []);
+            return new JsonResponse(sprintf("Error, %s", $e->getMessage()), Http_codes::HTTP_CREATED, []);
         }
         return new JsonResponse(['id' => $codeId->value()], Http_codes::HTTP_CREATED);
 
