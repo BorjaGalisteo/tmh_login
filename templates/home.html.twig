@@ -58,7 +58,7 @@
                     'verification_code': $('#code').val(),
                 },
                 success: function (data) {
-                    $("#message_check").html('Was your code right? :<strong>' + data['right_code'] + '</strong>');
+                    $("#message_check").html('Was your code right? :<strong>' + data['message'] + '</strong>');
                 },
             });
         });

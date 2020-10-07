@@ -12,7 +12,6 @@ use App\Application\Service\CheckVerificationCode;
 use App\Application\Service\CreateVerificationCode;
 use App\Application\Service\GetVerificationCode;
 use App\Application\Service\MarkCodeAsUsed;
-use App\Domain\Service\CheckCode;
 use App\Domain\Service\isValidPhoneNumber;
 use App\Domain\Service\SanitizePhoneNumber;
 use App\Domain\ValueObject\RightCode;
@@ -112,7 +111,7 @@ class CodeController extends AbstractController
             return new JsonResponse(['message' => 'Internal error'] . $e->getMessage(), Http_codes::HTTP_ERROR);
         }
 
-        return new JsonResponse(['right_code' => $checked->right()], Http_codes::HTTP_OK);
+        return new JsonResponse(['message' => $checked->right()], Http_codes::HTTP_OK);
     }
 
     /**

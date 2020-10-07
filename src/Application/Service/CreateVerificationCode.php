@@ -37,6 +37,7 @@ class CreateVerificationCode
      */
     public function handle(CreateVerificationCodeCommand $command): CodeId
     {
+        //In a real environment we should throw an event to send the SMS after creating the code.
         return $this->codeRepository->create(
             new VerificationCode(
                 $this->generateCode->handle(),
