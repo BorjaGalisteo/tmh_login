@@ -110,7 +110,26 @@ class MySqliCodeRepository implements CodeRepositoryInterface
         if (null === $verificationCode) {
             throw CodeNotFoundException::becauseOf('Not found');
         }
-        return $this->codeModelToEntityTransformer->transform($verificationCode);
 
+        return $this->codeModelToEntityTransformer->transform($verificationCode);
+    }
+
+    /**
+     * @param CodeDomain $code
+     */
+    public function setAsUsed(CodeDomain $code): void
+    {
+        /** @var CodeRepository $repo */
+        $repo = $this->em->getRepository(Code::class);
+        /** @var Code $verificationCode */
+        $verificationCode = $repo->findOneBy(
+            [
+                'verificationCode' => $code->value(),
+            ],
+            ['createdAt' => 'DESC']
+        );
+        $verificationCode->setUsed(true);
+        $this->em->persist($verificationCode);
+        $this->em->flush();
     }
 }

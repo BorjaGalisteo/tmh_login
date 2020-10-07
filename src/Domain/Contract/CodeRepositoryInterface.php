@@ -36,4 +36,8 @@ interface CodeRepositoryInterface
      */
     public function getByCodeAndTelephone(CodeDomain $code, PhoneNumber $phoneNumber): VerificationCode;
 
+    /**
+     * @param CodeDomain $code
+     */
+    public function setAsUsed(CodeDomain $code): void;
 }
