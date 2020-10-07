@@ -8,8 +8,10 @@ use \App\Domain\Contract\CodeRepositoryInterface;
 use App\Domain\Entity\VerificationCode;
 use App\Domain\Service\GenerateCode;
 use App\Domain\ValueObject\Code;
+use App\Domain\ValueObject\CodeId;
 use App\Domain\ValueObject\IsUsedCode;
 use App\Domain\ValueObject\PhoneNumber;
+use Exception;
 
 class CreateVerificationCode
 {
@@ -30,11 +32,12 @@ class CreateVerificationCode
 
     /**
      * @param CreateVerificationCodeCommand $command
-     * @throws \Exception
+     * @return CodeId
+     * @throws Exception
      */
-    public function handle(CreateVerificationCodeCommand $command): void
+    public function handle(CreateVerificationCodeCommand $command): CodeId
     {
-        $this->codeRepository->create(
+        return $this->codeRepository->create(
             new VerificationCode(
                 $this->generateCode->handle(),
                 new PhoneNumber($command->phoneNumber()),

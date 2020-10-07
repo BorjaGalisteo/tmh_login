@@ -1,9 +1,13 @@
-web:
+home:
     path: /
     methods: GET
     controller: App\Controller\Web\HomeController::handle
 
-api:
-    path: /code/
+create_code:
+    path: /api/code/
     methods: POST
     controller: App\Controller\Api\CodeController::create
+get_code:
+    path: /api/code/{code_id}
+    methods: GET
+    controller: App\Controller\Api\CodeController::getCode

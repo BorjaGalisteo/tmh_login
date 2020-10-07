@@ -7,9 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CodeRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Code
 {
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,6 +34,17 @@ class Code
      * @ORM\Column(type="boolean")
      */
     private $used;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
 
     public function getId(): ?int
     {
@@ -72,4 +86,36 @@ class Code
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function createdAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function updatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+       * @ORM\PrePersist
+       */
+      public function setCreatedAtValue()
+      {
+          $this->createdAt = new \DateTime();
+      }
+
+      /**
+       * @ORM\PreUpdate
+       */
+      public function setUpdateAtValue()
+      {
+          $this->updatedAt = new \DateTime();
+      }
 }
