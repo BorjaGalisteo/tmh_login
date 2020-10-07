@@ -4,6 +4,7 @@ namespace App\Domain\Entity;
 
 
 use App\Domain\ValueObject\Code;
+use App\Domain\ValueObject\CreatedAt;
 use App\Domain\ValueObject\IsUsedCode;
 use App\Domain\ValueObject\PhoneNumber;
 
@@ -12,6 +13,7 @@ class VerificationCode
     private Code $code;
     private PhoneNumber $phoneNumber;
     private IsUsedCode $isUsedCode;
+    private CreatedAt $createdAt;
 
     /**
      * VerificationCode constructor.
@@ -49,4 +51,24 @@ class VerificationCode
     {
         return $this->isUsedCode;
     }
+
+    /**
+     * @return CreatedAt|null
+     */
+    public function createdAt(): ?CreatedAt
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param CreatedAt $createdAt
+     * @return VerificationCode
+     */
+    public function setCreatedAt(CreatedAt $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+
 }

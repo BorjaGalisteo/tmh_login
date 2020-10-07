@@ -11,3 +11,7 @@ get_code:
     path: /api/code/{code_id}
     methods: GET
     controller: App\Controller\Api\CodeController::getCode
+check_code:
+    path: /api/check/
+    methods: GET
+    controller: App\Controller\Api\CodeController::check

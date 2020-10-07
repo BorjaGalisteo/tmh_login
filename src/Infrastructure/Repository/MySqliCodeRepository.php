@@ -6,6 +6,8 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Contract\CodeRepositoryInterface;
 use App\Domain\Entity\VerificationCode;
 use App\Domain\ValueObject\CodeId;
+use App\Domain\ValueObject\Code as CodeDomain;
+use App\Domain\ValueObject\PhoneNumber;
 use App\Infrastructure\Exception\CodeException;
 use App\Infrastructure\Exception\CodeNotFoundException;
 use App\Infrastructure\Models\Code;
@@ -79,5 +81,36 @@ class MySqliCodeRepository implements CodeRepositoryInterface
         } catch (\Throwable $e) {
             throw CodeException::becauseOf($e->getMessage());
         }
+    }
+
+    /**
+     * @param CodeDomain $code
+     * @param PhoneNumber $phoneNumber
+     * @return VerificationCode
+     * @throws CodeException
+     * @throws CodeNotFoundException
+     */
+    public function getByCodeAndTelephone(CodeDomain $code, PhoneNumber $phoneNumber): VerificationCode
+    {
+        try {
+            /** @var CodeRepository $repo */
+            $repo = $this->em->getRepository(Code::class);
+            /** @var Code $verificationCode */
+            $verificationCode = $repo->findOneBy(
+                [
+                    'verificationCode' => $code->value(),
+                    'phoneNumber'      => $phoneNumber->value(),
+                ],
+                ['createdAt' => 'DESC']
+            );
+        } catch (\Throwable $e) {
+            throw CodeException::becauseOf($e->getMessage());
+        }
+
+        if (null === $verificationCode) {
+            throw CodeNotFoundException::becauseOf('Not found');
+        }
+        return $this->codeModelToEntityTransformer->transform($verificationCode);
+
     }
 }
