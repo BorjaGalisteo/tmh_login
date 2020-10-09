@@ -7,13 +7,13 @@
 
 2 - Ejecutar composer install para descargar las dependencias.
 
-3 - Puedes arrancar el servidor propio de symfony en otro terminal con symfony server:start
+3 - Puedes arrancar el servidor propio de symfony en otro terminal con `symfony server:start`
 
-4 - Crea la base de datos php bin/console doctrine:database:create
+4 - Crea la base de datos `php bin/console doctrine:database:create`
 
 He utilizado SqLite para que no haga falta servidor.
 
-4- Ejecutar las migrations  php bin/console doctrine:migrations:migrate
+4- Ejecutar las migrations  `php bin/console doctrine:migrations:migrate`
 
   
   
@@ -74,14 +74,14 @@ Tenemos 2 comandos, ambos utilizan la misma API que la web, no se ha duplicado n
 
 Para crear el código utilizamos, nos dará como output el codigo creado para nosotros.
 
-php bin/console code:generate 615359140
+`php bin/console code:generate 615359140`
 
 ![](https://lh4.googleusercontent.com/GrDQG4VA-CeYbOWa4BG9MlUmu6ywfEoeeqoZEa3nNIo23XWXyV6uSJovW6aJT-z8rpjAy0EYKXPCVYpiiI3dTH-Q_jbsAk03_LNdvfVJB0pXSW3xj9_JPUYQVNbI3XUm6_MkcGAh)
 
   
 
 Para comprobar si nuestro código es correcto debemos utilizar el comando  
-php bin/console code:check 615359140 11b8
+`php bin/console code:check 615359140 11b8`
 
   
 
